@@ -24,9 +24,11 @@ function findById(userId) {
 }
 
 //GET (FIND STEPS) <----- add Join of steps.
-function findSteps(userId) {
-    return db.select("*").from("schemes")
-    .where({id: userId})
+function findSteps(schemeId) {
+    return db("steps")
+    .select("steps.id", "steps.step_number", "steps.instructions", "scheme_id")
+    .join("schemes", "schemes.id", "steps.scheme_id")
+    .where('steps.scheme_id', schemeId)
 }
 
 //POST (CREATE)
