@@ -23,7 +23,7 @@ function findById(userId) {
     .first(); // = same as-> const user = users[0]
 }
 
-//GET (FIND STEPS)
+//GET (FIND STEPS) <----- add Join of steps.
 function findSteps(userId) {
     return db.select("*").from("schemes")
     .where({id: userId})
@@ -43,18 +43,18 @@ function add(user) {
     });
 }
 
-////EDIT/UPDATE - correct???????????
+////EDIT/UPDATE - THINK ITS WRONG!
 
-function update(user) {
-    return db("schemes").update(user)
-    .then(([id]) => {
-        return findById(id);
-    });
+function update(user, id) { /// NEED id paramater next to user.
+    return db("schemes").update(user).where("id",id)
+    // .then(([id]) => {
+    //     return findById(id);
+    // });
 }
 
-//Delete - correct ???????
-function remove(user) {
-    return db("schemes").remove(user)
+//Delete - THINK ITS WRONG!
+function remove(id) {
+    return db("schemes").where("id",id).delete()
     // .then(([id]) => {
     //     return findById(id);
     // });
